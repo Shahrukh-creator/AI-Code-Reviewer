@@ -1,0 +1,165 @@
+<div class="reviewer-page">
+
+    <header class="page-header">
+      <h1>AI Code Reviewer</h1>
+  
+      <p>
+        Review code using organization-specific engineering standards,
+        LangChain, RAG, Chroma, and OpenAI.
+      </p>
+    </header>
+  
+    <section class="input-card">
+  
+      <div class="form-group">
+        <label for="language">Programming Language</label>
+  
+        <select
+          id="language"
+          [(ngModel)]="language"
+        >
+          <option value="python">Python</option>
+          <option value="typescript">TypeScript</option>
+          <option value="javascript">JavaScript</option>
+          <option value="java">Java</option>
+          <option value="csharp">C#</option>
+        </select>
+      </div>
+  
+      <div class="form-group">
+        <label for="code">Code</label>
+  
+        <textarea
+          id="code"
+          [(ngModel)]="code"
+          rows="18"
+          placeholder="Paste your code here..."
+        ></textarea>
+      </div>
+  
+      <button
+        type="button"
+        class="review-button"
+        (click)="reviewCode()"
+        [disabled]="loading"
+      >
+        {{ loading ? 'Reviewing...' : 'Review Code' }}
+      </button>
+  
+      <div
+        *ngIf="errorMessage"
+        class="error-message"
+      >
+        {{ errorMessage }}
+      </div>
+  
+    </section>
+  
+  
+    <ng-container *ngIf="result as response">
+  
+      <section class="summary-card">
+  
+        <div class="score">
+          {{ response.review.score }}/10
+        </div>
+  
+        <div>
+          <h2>Review Summary</h2>
+          <p>{{ response.review.summary }}</p>
+        </div>
+  
+      </section>
+  
+  
+      <section class="results-section">
+  
+        <h2>Issues</h2>
+  
+        <div
+          *ngFor="let issue of response.review.issues"
+          class="issue-card"
+        >
+  
+          <div class="issue-header">
+  
+            <span
+              class="severity"
+              [ngClass]="getSeverityClass(issue.severity)"
+            >
+              {{ issue.severity }}
+            </span>
+  
+            <span class="category">
+              {{ issue.category }}
+            </span>
+  
+            <span *ngIf="issue.line">
+              Line {{ issue.line }}
+            </span>
+  
+          </div>
+  
+          <h3>{{ issue.problem }}</h3>
+  
+          <p>
+            {{ issue.explanation }}
+          </p>
+  
+          <div class="suggestion">
+            <strong>Suggested fix</strong>
+            <p>{{ issue.suggestion }}</p>
+          </div>
+  
+        </div>
+  
+      </section>
+  
+  
+      <section class="results-section">
+  
+        <h2>Strengths</h2>
+  
+        <ul>
+          <li
+            *ngFor="let strength of response.review.strengths"
+          >
+            {{ strength }}
+          </li>
+        </ul>
+  
+      </section>
+  
+  
+      <section class="results-section">
+  
+        <h2>RAG Sources</h2>
+  
+        <p class="section-description">
+          These knowledge-base documents were retrieved from Chroma
+          before the LLM generated the review.
+        </p>
+  
+        <div
+          *ngFor="let source of response.sources"
+          class="source-card"
+        >
+          <strong>
+            {{ source.source }}
+          </strong>
+  
+          <span>
+            {{ source.category }}
+          </span>
+  
+          <span>
+            Distance:
+            {{ source.distance | number:'1.3-3' }}
+          </span>
+        </div>
+  
+      </section>
+  
+    </ng-container>
+  
+  </div>

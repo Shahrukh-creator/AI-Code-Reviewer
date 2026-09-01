@@ -1,0 +1,117 @@
+<div class="app-shell">
+
+    <!-- Sidebar -->
+  
+    <aside class="sidebar">
+  
+      <div class="brand">
+  
+        <div class="brand-icon">
+          🧠
+        </div>
+  
+        <div>
+          <h1>Knowledge AI</h1>
+          <span>Company Assistant</span>
+        </div>
+  
+      </div>
+  
+  
+      <nav class="navigation">
+  
+        <a
+          routerLink="/chat"
+          routerLinkActive="active"
+          class="nav-item"
+        >
+  
+          <span class="nav-icon">💬</span>
+  
+          <span>Chat</span>
+  
+        </a>
+  
+  
+        <a
+          routerLink="/upload"
+          routerLinkActive="active"
+          class="nav-item"
+        >
+  
+          <span class="nav-icon">📄</span>
+  
+          <span>Upload Documents</span>
+  
+        </a>
+  
+  
+        <a
+          routerLink="/search"
+          routerLinkActive="active"
+          class="nav-item"
+        >
+  
+          <span class="nav-icon">🔎</span>
+  
+          <span>Search Knowledge</span>
+  
+        </a>
+  
+      </nav>
+  
+  
+      <div class="sidebar-bottom">
+  
+        <div class="knowledge-status">
+  
+          <span class="status-dot"></span>
+  
+          <div>
+            <strong>Knowledge Base</strong>
+            <small>Connected</small>
+          </div>
+  
+        </div>
+  
+      </div>
+  
+    </aside>
+  
+  
+    <!-- Main -->
+  
+    <main class="main-content">
+  
+      <header class="topbar">
+  
+        <div>
+  
+          <h2>Company Knowledge Assistant</h2>
+  
+          <p>
+            Ask questions and find information from your company documents.
+          </p>
+  
+        </div>
+  
+        <div class="status">
+  
+          <span class="online-dot"></span>
+  
+          AI Online
+  
+        </div>
+  
+      </header>
+  
+  
+      <section class="workspace">
+  
+        <router-outlet></router-outlet>
+  
+      </section>
+  
+    </main>
+  
+  </div>
